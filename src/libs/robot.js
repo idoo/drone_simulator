@@ -1,13 +1,24 @@
 import  { includes } from 'lodash';
-const ORIENTATIONS = ['north', 'south', 'east', 'west'];
+const NORTH = 'north';
+const SOUTH = 'south';
+const EAST = 'east';
+const WEST = 'west';
+const ORIENTATIONS = [NORTH, SOUTH, EAST, WEST];
 const FIRST_LAW_OF_ROBOTICS = 'A robot may not injure a human being or, ' +
   'through inaction, allow a human being to come to harm.';
 
 class Robot {
+  /***
+   * Class constructor
+   */
   constructor() {
     this.direction = null;
   }
 
+  /**
+   * Kill target
+   * @param target [String] target
+   */
   kill(target) {
     switch (target) {
       case 'human' :
@@ -19,67 +30,88 @@ class Robot {
     }
   }
 
+  /***
+   * Set robot orientation
+   * @param orientation [String] Orientation
+   */
   setOrientation(orientation) {
     this.direction = (includes(ORIENTATIONS, orientation)) ? orientation : null;
   }
 
+  /***
+   * Turn robot left
+   */
   turnLeft() {
     switch (this.direction) {
-      case ORIENTATIONS[0] :
-        this.direction = ORIENTATIONS[3];
+      case NORTH :
+        this.direction = WEST;
         break;
-      case ORIENTATIONS[1] :
-        this.direction = ORIENTATIONS[2];
+      case SOUTH :
+        this.direction = EAST;
         break;
-      case ORIENTATIONS[2] :
-        this.direction = ORIENTATIONS[0];
+      case EAST :
+        this.direction = NORTH;
         break;
-      case ORIENTATIONS[3] :
-        this.direction = ORIENTATIONS[1];
+      case WEST :
+        this.direction = SOUTH;
         break;
       default :
         this.showOrientationError();
     }
   }
 
+  /***
+   * Turn robot right
+   */
   turnRight() {
     switch (this.direction) {
-      case ORIENTATIONS[0] :
-        this.direction = ORIENTATIONS[2];
+      case NORTH :
+        this.direction = EAST;
         break;
-      case ORIENTATIONS[1] :
-        this.direction = ORIENTATIONS[3];
+      case SOUTH :
+        this.direction = WEST;
         break;
-      case ORIENTATIONS[2] :
-        this.direction = ORIENTATIONS[1];
+      case EAST :
+        this.direction = SOUTH;
         break;
-      case ORIENTATIONS[3] :
-        this.direction = ORIENTATIONS[0];
+      case WEST :
+        this.direction = NORTH;
         break;
       default :
         this.showOrientationError();
     }
   }
 
+  /**
+   * Move robot to 1 step
+   * @returns {{x: number, y: number}}
+   */
   move() {
     switch (this.direction) {
-      case ORIENTATIONS[0] :
+      case NORTH :
         return {x: 0, y: 1};
-      case ORIENTATIONS[1] :
+      case SOUTH :
         return {x: 0, y: -1};
-      case ORIENTATIONS[2] :
+      case EAST :
         return {x: 1, y: 0};
-      case ORIENTATIONS[3] :
+      case WEST :
         return {x: -1, y: 0};
       default :
         this.showOrientationError();
     }
   }
 
+  /**
+   * Show first law of robotics
+   */
   firstLawOfRobotics() {
     throw new Error(FIRST_LAW_OF_ROBOTICS);
   }
 
+  /***
+   * Show error about invalid orientation
+   * @param orientation
+   */
   showOrientationError(orientation) {
     throw new Error(`Invalid orientation: ${orientation}`);
   }

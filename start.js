@@ -1,2 +1,2 @@
-require('babel-core/register');
-require('./src/index.js');
+require('babel-register');
+require('./src/control.js');

@@ -52,7 +52,7 @@ describe('Robot', function () {
       expect(function () {
         robot.turnLeft();
       }).to.throw();
-    })
+    });
   });
 
   describe('#turnRight', function() {
@@ -74,7 +74,7 @@ describe('Robot', function () {
       expect(function () {
         robot.turnRight();
       }).to.throw();
-    })
+    });
   });
 
   describe('#move', function() {
@@ -101,5 +101,5 @@ describe('Robot', function () {
       robot.direction = 'west';
       expect(robot.move()).to.eql({x: -1, y: 0});
     });
-  })
+  });
 });

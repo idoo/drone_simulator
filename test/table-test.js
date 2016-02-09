@@ -38,11 +38,10 @@ describe('Table', function () {
   });
 
   describe('#setPosition', function () {
-    it('should return true, and update position', function () {
+    it('should update position', function () {
       let table, res;
       table = new Table();
       res = table.setPosition(4, 4);
-      expect(res).to.be.true;
       expect(table.position).to.eql({x: 4, y: 4});
     });
 

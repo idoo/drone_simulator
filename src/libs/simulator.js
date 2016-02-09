@@ -7,6 +7,7 @@ const ERR_NO_COMMAND = 'Please type any command';
 const ERR_NO_POSSITION = 'Please set position first!';
 const ERR_INVALID_COMMAND = 'Invalid command';
 const ERR_INVALID_POSITION = 'Invalid position or orientation';
+const ERR_WRONG = 'Something went wrong';
 
 class Simulator {
   /***
@@ -18,18 +19,17 @@ class Simulator {
   }
 
   /***
-   *
+   * Run robot command
    * @param commandString [String] String with command for robot
    */
   run(commandString) {
-    let commands, operator, position;
-    commands = commandString.split(' ');
-    operator = head(commands).toLowerCase();
-    position = last(commands).split(',');
+    const commands = commandString.split(' ');
+    const operator = head(commands).toLowerCase();
+    const position = last(commands).split(',');
 
     if (isEmpty(commandString)) {
       throw new Error(ERR_NO_COMMAND);
-    } else if (!this.table.position && operator != COMMANDS[0]) {
+    } else if (!this.table.position && operator !== COMMANDS[0]) {
       return ERR_NO_POSSITION;
     }
 
@@ -37,9 +37,9 @@ class Simulator {
   }
 
   /**
-   *
-   * @param command [String] Execute command for robot
-   * @param position [Array] Execute command for robot
+   * Execute robot command
+   * @param command [String] Command for robot
+   * @param position [Array] Position for robot
    */
   executeCommand(command, position) {
     switch (command) {
@@ -58,6 +58,11 @@ class Simulator {
     }
   }
 
+  /***
+   * Place robot to position
+   * @param position [Array] Robot position
+   * @returns {{msg, orientation, x, y}|*}
+   */
   place(position) {
     let orientation, x, y;
     try {
@@ -74,6 +79,10 @@ class Simulator {
     }
   }
 
+  /***
+   * Move robot 1 step
+   * @returns {{msg, orientation, x, y}|*}
+   */
   move() {
     let step, x, y;
     try {
@@ -87,6 +96,10 @@ class Simulator {
     }
   }
 
+  /***
+   * Turn robot left
+   * @returns {{msg, orientation, x, y}|*}
+   */
   left() {
     try {
       let x, y;
@@ -96,10 +109,14 @@ class Simulator {
 
       return this._buildRespObject(x, y, this.robot.direction);
     } catch (err) {
-      throw new Error(ERR_INVALID_COMMAND);
+      throw new Error(ERR_WRONG);
     }
   }
 
+  /***
+   * Turn robot right
+   * @returns {{msg, orientation, x, y}|*}
+   */
   right() {
     try {
       let x, y;
@@ -109,10 +126,14 @@ class Simulator {
 
       return this._buildRespObject(x, y, this.robot.direction);
     } catch (err) {
-      throw new Error(ERR_INVALID_COMMAND);
+      throw new Error(ERR_WRONG);
     }
   }
 
+  /***
+   * Report current position
+   * @returns {{msg, orientation, x, y}|*}
+   */
   report() {
     let orientation, position;
     position = this.table.position;
@@ -121,9 +142,17 @@ class Simulator {
     return this._buildRespObject(position.x, position.y, orientation);
   }
 
+  /***
+   * Create object with current robot position
+   * @param x [Number] X coordinate
+   * @param y [Number] Y coordinate
+   * @param orientation [String] Orientation
+   * @returns {{msg: *, orientation: *, x: *, y: *}}
+   * @private
+   */
   _buildRespObject(x, y, orientation) {
     return {
-      msg: `Robot set to ${x},${y} front to ${orientation}`,
+      msg: `Robot set to ${x},${y},${orientation}`,
       orientation: orientation,
       x: x,
       y: y

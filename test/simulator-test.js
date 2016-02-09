@@ -143,7 +143,7 @@ describe('Simulator', function () {
       orientation = 'west';
 
       let resp = {
-        msg: `Robot set to ${x},${y} front to ${orientation}`,
+        msg: `Robot set to ${x},${y},${orientation}`,
         orientation: orientation,
         x: x,
         y: y
