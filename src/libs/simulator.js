@@ -1,4 +1,4 @@
-import { head, last, isEmpty } from 'lodash'
+import { head, last, isEmpty } from 'lodash';
 import Table from './table';
 import Robot from './robot';
 
@@ -8,7 +8,7 @@ const ERR_NO_POSSITION = 'Please set position first!';
 const ERR_INVALID_COMMAND = 'Invalid command';
 const ERR_INVALID_POSITION = 'Invalid position or orientation';
 
-class Control {
+class Simulator {
   /***
    * Class constructor
    */
@@ -45,19 +45,14 @@ class Control {
     switch (command) {
       case COMMANDS[0] :
         return this.place(position);
-        break;
       case COMMANDS[1] :
         return this.move();
-        break;
       case COMMANDS[2] :
         return this.left();
-        break;
       case COMMANDS[3] :
         return this.right();
-        break;
       case COMMANDS[4] :
         return this.report();
-        break;
       default:
         throw new Error(ERR_INVALID_COMMAND);
     }
@@ -132,8 +127,8 @@ class Control {
       orientation: orientation,
       x: x,
       y: y
-    }
+    };
   }
 }
 
-export default Control;
+export default Simulator;

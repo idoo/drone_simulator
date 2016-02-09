@@ -1,7 +1,7 @@
 import clc from 'cli-color';
 import readline from 'readline';
 import {isEmpty} from 'lodash';
-import Control from './libs/control';
+import Simulator from './libs/simulator';
 import Drone from './libs/drone';
 
 const DEV_MODE = false;
@@ -11,9 +11,9 @@ const AVAILABLE_COMMANDS =
 const warn = clc.red.bold;
 const notice = clc.blue.italic;
 
-let simulator, drone, rl, command;
+let simulator, drone, rl;
 rl = readline.createInterface(process.stdin, process.stdout);
-simulator = new Control();
+simulator = new Simulator();
 
 console.info(warn('******************************************'));
 console.info(warn('*  Command `stop` will switch off robot  *'));
@@ -47,7 +47,7 @@ function executeCommand(command) {
     let resp = simulator.run(command);
     console.log(resp.msg);
   } else {
-    drone.run(command)
+    drone.run(command);
   }
 }
 

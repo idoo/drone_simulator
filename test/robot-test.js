@@ -38,11 +38,11 @@ describe('Robot', function () {
       let robot = new Robot();
       robot.direction = 'north';
       robot.turnLeft();
-      expect(robot.direction).to.eql('east');
+      expect(robot.direction).to.eql('west');
       robot.turnLeft();
       expect(robot.direction).to.eql('south');
       robot.turnLeft();
-      expect(robot.direction).to.eql('west');
+      expect(robot.direction).to.eql('east');
       robot.turnLeft();
       expect(robot.direction).to.eql('north');
     });
@@ -60,11 +60,11 @@ describe('Robot', function () {
       let robot = new Robot();
       robot.direction = 'north';
       robot.turnRight();
-      expect(robot.direction).to.eql('west');
+      expect(robot.direction).to.eql('east');
       robot.turnRight();
       expect(robot.direction).to.eql('south');
       robot.turnRight();
-      expect(robot.direction).to.eql('east');
+      expect(robot.direction).to.eql('west');
       robot.turnRight();
       expect(robot.direction).to.eql('north');
     });
