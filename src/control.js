@@ -7,11 +7,13 @@ import Simulator from './libs/simulator';
 import Drone from './libs/drone';
 const warn = clc.red.bold;
 const notice = clc.blue.italic;
+
 let simulator, drone;
 
 (function startMachine() {
   if (!DEV_MODE) {
-    drone = (new Drone()).start();
+    drone = new Drone();
+    drone.start();
     _showDroneNotice();
   } else {
     simulator = new Simulator();
